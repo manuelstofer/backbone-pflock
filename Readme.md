@@ -1,5 +1,7 @@
 # Backbone-Pflock
 
+![Build status](https://api.travis-ci.org/manuelstofer/backbone-pflock.png)
+
 Two way data bindings for [Backbone](http://backbonejs.org) models using [Pflock](https://github.com/manuelstofer/pflock).
 
 
