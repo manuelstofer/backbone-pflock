@@ -5,7 +5,21 @@
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
 </head>
 <body>
+
+<div id="backbone-pflock">
+    Username: <input class="username" type="text" x-bind="value:.username"> <br/>
+    Description: <textarea class="description" x-bind="value:.description"></textarea> <br/>
+    Type: <select class="type" x-bind="value:.type">
+        <option value="0">Tarsier</option>
+        <option value="1">Lemur</option>
+    </select> <br/>
+    Speed: <input class="speed" type="range" min="1" max="10" x-bind="value:.speed">
+</div>
+
+
+
 <div id="mocha"></div>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="../node_modules/mocha/mocha.js"></script>
 <script src="../node_modules/chai/chai.js"></script>
 <script>
