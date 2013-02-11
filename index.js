@@ -20,5 +20,9 @@ function adapter (element, model) {
         model.set(attribute, value);
     });
 
+    model.on('change', function () {
+        binding.toDocument(model.toJSON());
+    });
+
     return binding;
 }

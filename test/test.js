@@ -7,16 +7,6 @@ describe('test setup', function () {
     });
 });
 
-var example = new Backbone.Model({
-    username:       'Yohn Yapan',
-    description:    'foo',
-    type:           '1',
-    speed:          '9'
-});
-
-adapter($('#backbone-pflock').get(0), example);
-
-
 describe('backbone-pflock', function () {
 
     var el,
@@ -65,6 +55,33 @@ describe('backbone-pflock', function () {
 
         documentEqualsModel();
     });
+
+    it('changes in backbone model are pushed to document', function () {
+        adapter(el, model);
+
+        model.set('username',       'someone else');
+        model.set('description',    'its not you');
+        model.set('type',           '2');
+        model.set('type',           '1');
+
+        documentEqualsModel();
+    });
+});
+
+/**
+ * Visible Example in Test Runner
+ * @type {Backbone.Model}
+ */
+var example = new Backbone.Model({
+    username:       'Yohn Yapan',
+    description:    'foo',
+    type:           '1',
+    speed:          '9'
+});
+
+adapter($('#backbone-pflock').get(0), example);
+example.on('change', function () {
+    console.log(example.toJSON());
 });
 
 function triggerEvent (element, event) {
