@@ -1,5 +1,19 @@
-# component-travis-mocha-phantomjs-chai
+# Backbone-Pflock
 
-test setup for components with travis support
+Two way data bindings for [Backbone](http://backbonejs.org) models using [Pflock](https://github.com/manuelstofer/pflock)
 
-![Build status](https://api.travis-ci.org/manuelstofer/component-travis-mocha-phantomjs-chai.png)
+Backbone-Pflock provides an adapter to use Backbone models with pflock
+
+### Usage
+```Javascript
+var adapter = require('backbone-pflock');
+var model = new Backbone.Model({
+    name: 'bla',
+    description: 'anything'
+});
+
+var el = document.getElementById('model-root-node');
+
+bind(el, model);
+```
+
