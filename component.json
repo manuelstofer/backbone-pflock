@@ -1,0 +1,13 @@
+{
+    "name": "backbone-pflock",
+    "description": "Two way data bindings for Backbone models using Pflock",
+    "version": "0.0.1",
+    "keywords": [],
+    "dependencies": {},
+    "development": {
+        "solutionio/backbone": "*"
+    },
+    "scripts": [
+        "index.js"
+    ]
+}
