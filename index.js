@@ -13,11 +13,10 @@ function adapter (element, model) {
     var binding = pflock(element, model.toJSON());
 
     binding.on('changed', function (path, value) {
-        var attribute = path.replace(/^\./,'');
-        if (attribute.match(/\./)) {
+        if (path.match(/\./)) {
             throw new Error('Nested attributes are not supported by the backbone-pflock adapter');
         }
-        model.set(attribute, value);
+        model.set(path, value);
     });
 
     model.on('change', function () {
