@@ -4,9 +4,11 @@
     "version": "0.1.0",
     "keywords": [],
     "dependencies": {
+        "manuelstofer/json-pointer": "*",
         "manuelstofer/pflock": "*"
     },
     "development": {
+        "adamsanderson/trigger-event": "*",
         "solutionio/backbone": "*"
     },
     "scripts": [

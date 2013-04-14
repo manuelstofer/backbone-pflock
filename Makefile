@@ -1,5 +1,6 @@
 build:
 	@echo build ...
+	@npm install
 	@./node_modules/.bin/component-install -d
 	@./node_modules/.bin/component-build -d
 

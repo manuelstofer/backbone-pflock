@@ -1,22 +1,32 @@
-var pflock = require('pflock');
-module.exports = adapter;
+var pflock      = require('pflock'),
+    jsonpointer = require('json-pointer');
+
+module.exports = BackbonePflockAdapter;
 
 /**
  * Backbone Models Adapter for Pflock
+ *
  * @param element
  * @param model
  * @return {Object}
  */
-function adapter (element, model) {
+function BackbonePflockAdapter (element, model) {
     'use strict';
 
     var binding = pflock(element, model.toJSON());
 
-    binding.on('changed', function (path, value) {
-        if (path.match(/\./)) {
-            throw new Error('Nested attributes are not supported by the backbone-pflock adapter');
+    binding.on('path-changed', function (path, value) {
+        var refTokens = jsonpointer.parse(path),
+            attribute = refTokens.shift();
+
+        if (refTokens.length == 0) {
+            model.set(attribute, value);
+
+        } else if (refTokens.length > 1) {
+            var obj = model.get(attribute);
+            jsonpointer.set(obj, jsonpointer.compile(refTokens), value);
+            model.set(attribute, obj);
         }
-        model.set(path, value);
     });
 
     model.on('change', function () {

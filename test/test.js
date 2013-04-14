@@ -1,5 +1,6 @@
-var adapter = require('backbone-pflock'),
-    Backbone = require('solutionio-backbone');
+var adapter     = require('backbone-pflock'),
+    Backbone    = require('solutionio-backbone');
+    trigger     = require('adamsanderson-trigger-event');
 
 describe('test setup', function () {
     it('should work', function () {
@@ -20,7 +21,8 @@ describe('backbone-pflock', function () {
             username:       'Yohn Yapan',
             description:    'foo',
             type:           '1',
-            speed:          '9'
+            speed:          '9',
+            tags: ['bla']
         });
     });
 
@@ -33,6 +35,7 @@ describe('backbone-pflock', function () {
         $(el).find('.description').val().should.equal(model.get('description'));
         $(el).find('.type').val().should.equal(model.get('type'));
         $(el).find('.speed').val().should.equal(model.get('speed'));
+        $(el).find('.tag').html().should.equal(model.get('tags')[0]);
     };
 
     it('should write the model data to the document', function () {
@@ -47,12 +50,8 @@ describe('backbone-pflock', function () {
         $(el).find('.description').val('bla');
         $(el).find('.type').val('0');
         $(el).find('.speed').val('3');
-
-        triggerEvent($(el).find('.username').get(0), 'change');
-        triggerEvent($(el).find('.description').get(0), 'change');
-        triggerEvent($(el).find('.type').get(0), 'change');
-        triggerEvent($(el).find('.speed').get(0), 'change');
-
+        $(el).find('.tag').val('changed');
+        trigger($(el).find('.speed').get(0), 'read', {bubbles: true});
         documentEqualsModel();
     });
 
@@ -76,7 +75,8 @@ var example = new Backbone.Model({
     username:       'Yohn Yapan',
     description:    'foo',
     type:           '1',
-    speed:          '9'
+    speed:          '9',
+    tags: ['bla']
 });
 
 adapter($('#backbone-pflock').get(0), example);
@@ -84,8 +84,3 @@ example.on('change', function () {
     console.log(example.toJSON());
 });
 
-function triggerEvent (element, event) {
-    var evt = document.createEvent('Event');
-    evt.initEvent(event, true, true);
-    element.dispatchEvent(evt);
-}
